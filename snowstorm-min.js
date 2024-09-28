@@ -47,7 +47,7 @@ var sakuraStorm = function (g, f) {
       m = navigator.userAgent.match(/msie/i),
       D = navigator.userAgent.match(/msie 6/i),
       C = navigator.userAgent.match(/mobile|opera m(ob|in)/i),
-      r = m && "BackCompat" === f.compatMode || D,
+      r = m && f.compatMode === "BackCompat" || D,
       h = null,
       n = null,
       l = null,
@@ -130,8 +130,8 @@ var sakuraStorm = function (g, f) {
         c = b.call(c);
         var d = c.length;
         e
-          ? (c[1] = "on" + c[1], 3 < d && c.pop())
-          : 3 === d && c.push(!1);
+          ? (c[1] = "on" + c[1], d > 3 && c.pop())
+          : d === 3 && c.push(!1);
         return c;
       }
       function d(a, b) {
@@ -155,7 +155,7 @@ var sakuraStorm = function (g, f) {
     this.randomizeWind = function () {
       var c;
       c = k(a.vMaxX, 0.2);
-      y = 1 === parseInt(k(2), 10) ? -1 * c : c;
+      y = parseInt(k(2), 10) === 1 ? -1 * c : c;
       z = k(a.vMaxY, 0.2);
       if (this.flakes) for (c = 0; c < this.flakes.length; c++) this.flakes[c].active && this.flakes[c].setVelocities();
     };
@@ -169,7 +169,7 @@ var sakuraStorm = function (g, f) {
         );
       isNaN(p) && (p = 0);
       if (!t && !a.flakeBottom && a.flakes)
-        for (c = 0; c < a.flakes.length; c++) 0 === a.flakes[c].active && a.flakes[c].stick();
+        for (c = 0; c < a.flakes.length; c++) a.flakes[c].active === 0 && a.flakes[c].stick();
     };
     this.resizeHandler = function () {
       g.innerWidth || g.innerHeight
@@ -260,24 +260,24 @@ var sakuraStorm = function (g, f) {
               (b.o.style.display = "block"));
       };
       this.vCheck = function () {
-        0 <= b.vX && 0.2 > b.vX && (b.vX = 0.2);
-        0 > b.vX && -0.2 < b.vX && (b.vX = -0.2);
-        0 <= b.vY && 0.2 > b.vY && (b.vY = 0.2);
+        b.vX >= 0 && b.vX < 0.2 && (b.vX = 0.2);
+        b.vX < 0 && b.vX > -0.2 && (b.vX = -0.2);
+        b.vY >= 0 && b.vY < 0.2 && (b.vY = 0.2);
       };
       this.move = function () {
         var c = b.vX * v;
         b.x += c;
         b.y += b.vY * b.vAmp;
-        b.x >= h || h - b.x < a.flakeWidth ? (b.x = 0) : 0 > c && b.x - a.flakeLeftOffset < -a.flakeWidth && (b.x = h - a.flakeWidth - 1);
+        b.x >= h || h - b.x < a.flakeWidth ? (b.x = 0) : c < 0 && b.x - a.flakeLeftOffset < -a.flakeWidth && (b.x = h - a.flakeWidth - 1);
         b.refresh();
         l + p - b.y + a.flakeHeight < a.flakeHeight
           ? (b.active = 0, a.snowStick ? b.stick() : b.recycle())
-          : (a.useMeltEffect && b.active && 3 > b.type && !b.melting && 0.998 < Math.random() && (b.melting = !0, b.melt()),
+          : (a.useMeltEffect && b.active && b.type < 3 && !b.melting && Math.random() > 0.998 && (b.melting = !0, b.melt()),
             a.useTwinkleEffect &&
-            (0 > b.twinkleFrame
-              ? 0.97 < Math.random() && (b.twinkleFrame = parseInt(8 * Math.random(), 10))
+            (b.twinkleFrame < 0
+              ? Math.random() > 0.97 && (b.twinkleFrame = parseInt(8 * Math.random(), 10))
               : (b.twinkleFrame--,
-                u ? (b.o.style.opacity = b.twinkleFrame && 0 === b.twinkleFrame % 2 ? 0 : 1) : (b.o.style.visibility = b.twinkleFrame && 0 === b.twinkleFrame % 2 ? "hidden" : "visible"))));
+                u ? (b.o.style.opacity = b.twinkleFrame && b.twinkleFrame % 2 === 0 ? 0 : 1) : (b.o.style.visibility = b.twinkleFrame && b.twinkleFrame % 2 === 0 ? "hidden" : "visible"))));
       };
       this.animate = function () {
         b.move();
@@ -329,8 +329,8 @@ var sakuraStorm = function (g, f) {
         d = null,
         e,
         d = 0;
-      for (e = a.flakes.length; d < e; d++) 1 === a.flakes[d].active && (a.flakes[d].move(), c++), a.flakes[d].melting && a.flakes[d].melt();
-      c < a.flakesMaxActive && ((d = a.flakes[parseInt(k(a.flakes.length), 10)]), 0 === d.active && (d.melting = !0));
+      for (e = a.flakes.length; d < e; d++) a.flakes[d].active === 1 && (a.flakes[d].move(), c++), a.flakes[d].melting && a.flakes[d].melt();
+      c < a.flakesMaxActive && ((d = a.flakes[parseInt(k(a.flakes.length), 10)]), d.active === 0 && (d.melting = !0));
       a.timer && q.getAnimationFrame(a.snow);
     };
     this.mouseMove = function (c) {
@@ -370,7 +370,7 @@ var sakuraStorm = function (g, f) {
       if (A) {
         if (c) return !0;
       } else A = !0;
-      if ("string" === typeof a.targetElement) {
+      if (typeof a.targetElement === "string") {
         c = a.targetElement;
         a.targetElement = f.getElementById(c);
         if (!a.targetElement) throw Error('Snowstorm: Unable to get targetElement "' + c + '"');
