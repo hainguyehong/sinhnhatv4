@@ -8,7 +8,7 @@
  Code provided under the BSD License
  http://schillmania.com/projects/snowstorm/license.txt
 */
-var sakuraStorm = function (g, f) {
+var sakuraStorm = (function (g, f) {
     function k(a, d) {
       isNaN(d) && (d = 0);
       return Math.random() * a + d;
@@ -69,7 +69,7 @@ var sakuraStorm = function (g, f) {
     }
     var A = !1,
       B = f.createDocumentFragment();
-    q = function () {
+    q = (function () {
       function c(b) {
         g.setTimeout(b, 1e3 / (a.animationInterval || 20));
       }
@@ -109,7 +109,7 @@ var sakuraStorm = function (g, f) {
         e.transform.opera;
       h = null;
       return e;
-    }();
+    }());
     this.timer = null;
     this.flakes = [];
     this.active = this.disabled = !1;
@@ -125,7 +125,7 @@ var sakuraStorm = function (g, f) {
             ? (c.style.right = 100 - 100 * (d / h) + "%", c.style.top = Math.min(e, s - a.flakeHeight) + "px")
             : (c.style.right = 100 - 100 * (d / h) + "%", c.style.bottom = 100 - 100 * (e / l) + "%"));
       };
-    this.events = function () {
+    this.events = (function () {
       function a(c) {
         c = b.call(c);
         var d = c.length;
@@ -151,7 +151,7 @@ var sakuraStorm = function (g, f) {
           d(a(arguments), "remove");
         },
       };
-    }();
+    }());
     this.randomizeWind = function () {
       var c;
       c = k(a.vMaxX, 0.2);
@@ -386,7 +386,7 @@ var sakuraStorm = function (g, f) {
     };
     a.autoStart && a.events.add(g, "load", x, !1);
     return this;
-  }(window, document);
+  }(window, document));
   
   // Start the sakura animation
   sakuraStorm.start();
