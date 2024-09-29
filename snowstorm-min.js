@@ -10,7 +10,7 @@
 */
 var sakuraStorm = function (g, f) {
     function k(a, d) {
-      isNaN(d) && (d = 0);
+      
       return Math.random() * a + d;
     }
     function w() {
@@ -117,13 +117,10 @@ var sakuraStorm = function (g, f) {
     this.meltFrames = [];
     this.setXY = r
       ? function (c, d, e) {
-        c && (c.style.right = 100 - 100 * (d / h) + "%", c.style.top = Math.min(e, s - a.flakeHeight) + "px");
+        
       }
       : function (c, d, e) {
-        c &&
-          (a.flakeBottom
-            ? (c.style.right = 100 - 100 * (d / h) + "%", c.style.top = Math.min(e, s - a.flakeHeight) + "px")
-            : (c.style.right = 100 - 100 * (d / h) + "%", c.style.bottom = 100 - 100 * (e / l) + "%"));
+        
       };
     this.events = function () {
       function a(c) {
@@ -167,7 +164,7 @@ var sakuraStorm = function (g, f) {
           g.scrollY || f.documentElement.scrollTop || (r ? f.body.scrollTop : 0),
           10
         );
-      isNaN(p) && (p = 0);
+      
       if (!t && !a.flakeBottom && a.flakes)
         for (c = 0; c < a.flakes.length; c++) 0 === a.flakes[c].active && a.flakes[c].stick();
     };
@@ -209,10 +206,7 @@ var sakuraStorm = function (g, f) {
       for (c = 0; c < this.flakes.length; c++) this.flakes[c].o.style.display = "none";
       a.events.remove(g, "scroll", a.scrollHandler);
       a.events.remove(g, "resize", a.resizeHandler);
-      a.freezeOnBlur &&
-        (m
-          ? (a.events.remove(f, "focusout", a.freeze), a.events.remove(f, "focusin", a.resume))
-          : (a.events.remove(g, "blur", a.freeze), a.events.remove(g, "focus", a.resume)));
+      
     };
     this.show = function () {
       var a;
@@ -236,7 +230,7 @@ var sakuraStorm = function (g, f) {
       this.o.innerHTML = a.snowCharacter;
       this.o.style.color = a.snowColor;
       this.o.style.position = t ? "fixed" : "absolute";
-      a.useGPU && q.transform.prop && (this.o.style[q.transform.prop] = "translate3d(0px, 0px, 0px)");
+      
       this.o.style.width = a.flakeWidth + "px";
       this.o.style.height = a.flakeHeight + "px";
       this.o.style.fontFamily = "arial,verdana";
@@ -260,9 +254,9 @@ var sakuraStorm = function (g, f) {
               (b.o.style.display = "block"));
       };
       this.vCheck = function () {
-        0 <= b.vX && 0.2 > b.vX && (b.vX = 0.2);
-        0 > b.vX && -0.2 < b.vX && (b.vX = -0.2);
-        0 <= b.vY && 0.2 > b.vY && (b.vY = 0.2);
+        
+        
+        
       };
       this.move = function () {
         var c = b.vX * v;
@@ -330,7 +324,7 @@ var sakuraStorm = function (g, f) {
         e,
         d = 0;
       for (e = a.flakes.length; d < e; d++) 1 === a.flakes[d].active && (a.flakes[d].move(), c++), a.flakes[d].melting && a.flakes[d].melt();
-      c < a.flakesMaxActive && ((d = a.flakes[parseInt(k(a.flakes.length), 10)]), 0 === d.active && (d.melting = !0));
+      
       a.timer && q.getAnimationFrame(a.snow);
     };
     this.mouseMove = function (c) {
@@ -356,10 +350,7 @@ var sakuraStorm = function (g, f) {
       a.createSnow(a.flakesMax);
       a.events.add(g, "resize", a.resizeHandler);
       a.events.add(g, "scroll", a.scrollHandler);
-      a.freezeOnBlur &&
-        (m
-          ? (a.events.add(f, "focusout", a.freeze), a.events.add(f, "focusin", a.resume))
-          : (a.events.add(g, "blur", a.freeze), a.events.add(g, "focus", a.resume)));
+      
       a.resizeHandler();
       a.scrollHandler();
       a.followMouse && a.events.add(m ? f : g, "mousemove", a.mouseMove);
@@ -375,14 +366,12 @@ var sakuraStorm = function (g, f) {
         a.targetElement = f.getElementById(c);
         if (!a.targetElement) throw Error('Snowstorm: Unable to get targetElement "' + c + '"');
       }
-      a.targetElement || (a.targetElement = f.documentElement || f.body);
-      a.targetElement !== f.documentElement &&
-        a.targetElement !== f.body &&
-        (a.resizeHandler = a.resizeHandlerAlt);
+      
+      
       a.resizeHandler();
       a.usePositionFixed = a.usePositionFixed && !r && !a.flakeBottom;
       t = a.usePositionFixed;
-      h && l && !a.disabled && (a.init(), (a.active = !0));
+      
     };
     a.autoStart && a.events.add(g, "load", x, !1);
     return this;
